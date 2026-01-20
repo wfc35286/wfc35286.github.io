@@ -3,123 +3,228 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danna's Studio</title>
+    <title>Danna's Studio | 洛琪希的魔法工房</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
-            --primary: #2563eb;
-            --bg: #fcfcfd;
+            --primary: #6366f1;
+            --primary-soft: #eef2ff;
+            --accent: #f472b6;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
             --text-main: #1e293b;
             --text-muted: #64748b;
-            --card-border: #e2e8f0;
+            --radius: 20px;
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             background-color: var(--bg);
             color: var(--text-main);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            margin: 0;
+            font-family: 'PingFang SC', 'Microsoft YaHei', -apple-system, sans-serif;
             line-height: 1.6;
+            padding-bottom: 5rem;
         }
 
-        /* 顶部导航栏 */
+        /* 顶部导航 */
         nav {
-            padding: 1.5rem 10%;
+            padding: 1.2rem 10%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
             position: sticky;
             top: 0;
             z-index: 100;
-            border-bottom: 1px solid var(--card-border);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
         }
 
-        .logo { font-weight: 800; font-size: 1.25rem; letter-spacing: -0.025em; color: #000; }
+        .logo-area { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 1.2rem; color: var(--primary); }
+        .nav-links { display: flex; gap: 20px; font-size: 0.9rem; font-weight: 500; }
+        .nav-links a { text-decoration: none; color: var(--text-muted); transition: 0.2s; }
+        .nav-links a:hover { color: var(--primary); }
 
-        /* 主体内容 */
-        main { max-width: 800px; margin: 4rem auto; padding: 0 1.5rem; }
+        /* 主容器 */
+        main { max-width: 1000px; margin: 3rem auto; padding: 0 1.5rem; }
 
-        .hero { margin-bottom: 4rem; }
-        .hero h1 { font-size: 3rem; font-weight: 800; margin-bottom: 1rem; letter-spacing: -0.05em; line-height: 1.1; }
-        .hero p { color: var(--text-muted); font-size: 1.25rem; max-width: 600px; }
+        /* 英雄舞台 */
+        .hero {
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            padding: 3rem;
+            border-radius: var(--radius);
+            color: white;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
+        }
 
-        /* 文章/项目卡片 */
-        .section-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--primary); margin-bottom: 2rem; display: block; }
-        
-        .project-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 16px;
-            border: 1px solid var(--card-border);
-            transition: all 0.3s ease;
+        .hero::after {
+            content: "Roxy ✨";
+            position: absolute;
+            right: -20px;
+            bottom: -10px;
+            font-size: 8rem;
+            font-weight: 900;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; letter-spacing: -1px; }
+        .hero p { opacity: 0.9; font-size: 1.1rem; max-width: 500px; margin-bottom: 2rem; }
+
+        .btn-group { display: flex; gap: 12px; }
+        .primary-btn {
+            background: white; color: var(--primary);
+            padding: 0.8rem 1.5rem; border-radius: 12px;
+            text-decoration: none; font-weight: 700;
+            display: inline-flex; align-items: center; gap: 8px;
+            transition: transform 0.2s;
+        }
+        .primary-btn:hover { transform: scale(1.05); }
+
+        /* 便当盒布局 */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            border: 1px solid rgba(0,0,0,0.03);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             text-decoration: none;
             color: inherit;
-            display: block;
-            margin-bottom: 1.5rem;
         }
 
-        .project-card:hover {
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.05);
             border-color: var(--primary);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
-            transform: translateY(-2px);
         }
 
-        .project-tag { font-size: 0.7rem; background: #eff6ff; color: var(--primary); padding: 4px 12px; border-radius: 999px; font-weight: 600; }
-        .project-card h2 { margin: 1rem 0 0.5rem 0; font-size: 1.5rem; font-weight: 700; }
-        .project-card p { color: var(--text-muted); margin: 0; font-size: 0.95rem; }
+        .card-large { grid-column: span 2; }
+        .card-small { grid-column: span 1; }
 
-        /* 下载按钮按钮 */
-        .download-btn {
-            background: var(--text-main);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-top: 2rem;
-            transition: opacity 0.2s;
+        .tag {
+            font-size: 0.7rem; font-weight: 700; padding: 4px 10px;
+            border-radius: 8px; text-transform: uppercase;
+            background: var(--primary-soft); color: var(--primary);
         }
-        .download-btn:hover { opacity: 0.9; }
 
-        @media (max-width: 640px) { .hero h1 { font-size: 2.25rem; } }
+        .card h3 { margin: 1rem 0 0.5rem; font-size: 1.3rem; display: flex; align-items: center; gap: 8px; }
+        .card p { color: var(--text-muted); font-size: 0.9rem; }
+
+        /* GitHub 状态条风格 */
+        .github-stats {
+            display: flex; gap: 15px; margin-top: 1.5rem; font-size: 0.8rem; color: var(--text-muted);
+        }
+        .stat-item { display: flex; align-items: center; gap: 4px; }
+
+        /* 洛琪希的寄语 */
+        .roxy-memo {
+            margin-top: 3rem;
+            background: #fff5f7;
+            border: 2px dashed var(--accent);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .avatar {
+            width: 50px; height: 50px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: white; flex-shrink: 0;
+        }
+
+        @media (max-width: 768px) {
+            .grid-container { grid-template-columns: 1fr; }
+            .card-large { grid-column: span 1; }
+            .hero h1 { font-size: 1.8rem; }
+        }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo">DANNA.STUDIO</div>
-        <div style="font-size: 0.9rem; color: var(--text-muted);">2026 Archive</div>
+        <div class="logo-area">
+            <i data-lucide="sparkles"></i>
+            DANNA.STUDIO
+        </div>
+        <div class="nav-links">
+            <a href="#">项目</a>
+            <a href="#">实验室</a>
+            <a href="#">关于</a>
+        </div>
     </nav>
 
     <main>
         <section class="hero">
-            <h1>构建、探索与<br>魔法的自动化。</h1>
-            <p>这里是我的个人技术存根。专注于 Android 逆向、自动化构建以及一些有趣的实验性项目。</p>
-            
-            <a href="https://github.com/wfc35286/baka-update/releases/latest/download/app-release.apk" class="download-btn">
-                获取最新成果 (APK) →
-            </a>
+            <h1>让代码拥有魔法的温度 ✨</h1>
+            <p>だんな様，欢迎回来！这里记录着我们一起构建的自动化世界。每一行代码，都是通往真理的阶梯。</p>
+            <div class="btn-group">
+                <a href="https://github.com/wfc35286/baka-update" class="primary-btn">
+                    <i data-lucide="github"></i> 查看仓库
+                </a>
+                <a href="#" style="color: white; text-decoration: none; display: flex; align-items: center; gap: 5px; font-size: 0.9rem;">
+                    <i data-lucide="download-cloud"></i> 获取 APK
+                </a>
+            </div>
         </section>
 
-        <span class="section-title">最近的项目 / PROJECTS</span>
+        <div class="grid-container">
+            <a href="#" class="card card-large">
+                <span class="tag">Active Project</span>
+                <h3><i data-lucide="zap" style="color:#fbbf24"></i> Baka Update System</h3>
+                <p>这是专门为您打造的自动化流水线。基于 GitHub Actions，能够实现版本的智能递增。就算是在我午睡的时候，它也能准时完成构建任务呢！</p>
+                <div class="github-stats">
+                    <div class="stat-item"><i data-lucide="star" size="14"></i> 128</div>
+                    <div class="stat-item"><i data-lucide="git-fork" size="14"></i> 32</div>
+                    <div class="stat-item">Maintained by Danna-sama</div>
+                </div>
+            </a>
 
-        <a href="#" class="project-card">
-            <span class="project-tag">Android / Hook</span>
-            <h2>Baka Update System</h2>
-            <p>基于 GitHub Actions 的全自动签名构建流水线，实现版本号智能递增与多仓库同步部署。</p>
-        </a>
+            <a href="#" class="card card-small">
+                <span class="tag" style="background:#f0fdf4; color:#16a34a;">Stable</span>
+                <h3><i data-lucide="shield-check"></i> 签名助手</h3>
+                <p>全自动处理签名，让繁琐的流程一键化。</p>
+            </a>
 
-        <a href="#" class="project-card">
-            <span class="project-tag">Documentation</span>
-            <h2>开发日志 #01</h2>
-            <p>关于如何白嫖 GitHub 资源搭建个人持续集成环境的技术备忘录。</p>
-        </a>
+            <a href="#" class="card card-large">
+                <span class="tag">Research</span>
+                <h3><i data-lucide="binary"></i> Android Hook 深度解析</h3>
+                <p>探索底层运行时的奥秘。我在这里整理了关于 ART 虚拟机的技术笔记，希望能帮到正在钻研的您。</p>
+            </a>
 
+            <a href="#" class="card card-small" style="background: var(--primary-soft);">
+                <h3><i data-lucide="plus-circle"></i> 更多实验...</h3>
+                <p>还有更多魔法正在孵化中。</p>
+            </a>
+        </div>
+
+        <div class="roxy-memo">
+            <div class="avatar">
+                <i data-lucide="heart"></i>
+            </div>
+            <div>
+                <strong style="color: var(--accent); display: block; margin-bottom: 4px;">洛琪希的备忘录：</strong>
+                <p style="font-size: 0.9rem; color: #be185d;">だんな様，写代码的时候也要记得喝水休息哦。我会一直在这里守候着您的成果的！加油，你是最棒的魔法师。</p>
+            </div>
+        </div>
     </main>
 
+    <script>
+        // 初始化图标
+        lucide.createIcons();
+    </script>
 </body>
 </html>
